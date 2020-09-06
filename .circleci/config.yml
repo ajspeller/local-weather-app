@@ -7,34 +7,29 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package-lock.json" }}
-    - run: npm ci
-    # force update the web driver
-    - run: cd ./node_modules/protractor && npm i webdrivermanager@latest
-    # because we use "npm ci" to install NPM dependencies
-    # we cache "~/.npm" folder
-    - save_cache"
-      keys: v1-dependencies-{{ checksum "package-lock.json" }}
-      paths:
-        - ~/.npm
-    - run: npm run style
-    - run: npm run lint
-    - run: npm run build:prod
-    - run: npm run test:coverage -- --watch=false
-    - run: npm run e2e
-    - run:
-        name: Tar & Gzip compiled app
-        command: tar zcf dist.tar.gz dist/local-weather-app
-    - store_artifacts:
-        path: dist.tar.gz
-orbs:
-  node: circleci/node@3.0.0
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+      - run: npm ci
+      # force update the web driver
+      - run: cd ./node_modules/protractor && npm i webdrivermanager@latest
+      # because we use "npm ci" to install NPM dependencies
+      # we cache "~/.npm" folder
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+      - run: npm run style
+      - run: npm run lint
+      - run: npm run build:prod
+      - run: npm run test:coverage -- --watch=false
+      - run: npm run e2e
+      - run:
+          name: Tar & Gzip compiled app
+          command: tar zcf dist.tar.gz dist/local-weather-app
+      - store_artifacts:
+          path: dist.tar.gz
 workflows:
   version: 2
   build-and-test:
     jobs:
       - build
-  node-tests:
-    jobs:
-      - node/test
