@@ -1,4 +1,4 @@
-<div *ngIf="current; else noData">
+<div *ngIf="(current$ | async) as current; else noData">
 
   <div fxLayout="row">
     <div fxFlex="55%"
