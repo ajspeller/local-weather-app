@@ -1,0 +1,12 @@
+<form autocomplete="off"
+      style="margin-bottom: 32px">
+  <mat-form-field appearance="outline">
+    <mat-label>City Name or Postal Code</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput
+           [formControl]="search"
+           aria-label="City or Zip">
+    <mat-hint>Specify code like 'Paris, US'</mat-hint>
+    <mat-error *ngIf="search.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+</form>
