@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Local Weather');
+    expect(page.getParagraphText()).toEqual('Local Weather');
   });
 
   afterEach(async () => {

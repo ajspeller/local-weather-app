@@ -1,16 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
+
+import { of } from 'rxjs';
 
 import { injectSpy } from 'angular-unit-test-helper';
 
 import { CurrentWeatherComponent } from './current-weather.component';
-import {
-  WeatherServiceFake,
-  fakeWeather,
-} from './../weather/weather.service.fake';
+import { fakeWeather } from './../weather/weather.service.fake';
 import { WeatherService } from '../weather/weather.service';
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
 
 describe('CurrentWeatherComponent', () => {
   let component: CurrentWeatherComponent;
@@ -69,7 +66,7 @@ describe('CurrentWeatherComponent', () => {
     expect(component.current.temperature).toEqual(99);
     // assert on DOM
     const debugEl = fixture.debugElement;
-    const titleEl: HTMLElement = debugEl.query(By.css('span')).nativeElement;
+    const titleEl: HTMLElement = debugEl.query(By.css('.mat-title')).nativeElement;
     expect(titleEl.textContent).toContain('Chesapeake');
   });
 });
